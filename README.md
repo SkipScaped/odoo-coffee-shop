@@ -76,6 +76,11 @@ That script:
 - creates the `coffee_shop` database
 - installs the custom addon
 - prints the final login URL
+- please clone the repo first and go to
+```cmd
+cd odoo-coffee-shop
+```
+- & then paste the cmd.
 
 Or follow the manual steps below if you prefer.
 
