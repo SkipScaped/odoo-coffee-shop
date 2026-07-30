@@ -262,11 +262,30 @@ docker compose --env-file .env down -v
 
 ## Troubleshooting
 
-### 1. `.env` is missing
+### 1. `.env` is missing or Docker says `key cannot contain a space`
 
 Fix:
 
 ```powershell
+Copy-Item .env.example .env
+```
+
+If Docker still says:
+
+```text
+failed to read .env: line 1: key cannot contain a space
+```
+
+then your local `.env` file was copied from a bad or older version. Delete it, recreate it, and make sure line 1 starts exactly like this with no spaces before the key:
+
+```text
+COMPOSE_PROJECT_NAME=coffee-shop-odoo
+```
+
+Fast reset:
+
+```powershell
+Remove-Item .env
 Copy-Item .env.example .env
 ```
 
