@@ -9,7 +9,7 @@ master_password = os.environ["ODOO_ADMIN_PASSWORD"]
 admin_login = os.environ.get("ODOO_INIT_ADMIN_LOGIN", "admin")
 admin_password = os.environ.get("ODOO_INIT_ADMIN_PASSWORD", "admin")
 language = os.environ.get("ODOO_INIT_LANG", "en_US")
-country_code = os.environ.get("ODOO_INIT_COUNTRY", "US")
+country_code = os.environ.get("ODOO_INIT_COUNTRY", "PK")
 phone = os.environ.get("ODOO_INIT_PHONE", "")
 modules = [m.strip() for m in os.environ.get("ODOO_INIT_MODULES", "coffee_shop").split(",") if m.strip()]
 

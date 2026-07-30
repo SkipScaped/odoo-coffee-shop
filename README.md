@@ -15,6 +15,8 @@ The seeded coffee shop module includes:
 - drinks, pastries, and retail products
 - POS categories for coffee shop items
 - product categories, tags, and a simple product classification field
+- Pakistan-based company defaults with PKR currency
+- a bundled coffee shop logo asset inside the addon
 
 ---
 
@@ -110,6 +112,8 @@ make init-db
 ```
 
 That creates the `coffee_shop` database and installs the `coffee_shop` addon automatically.
+
+By default, the automated setup now creates the database with Pakistan as the country context, and the addon sets the main company currency to PKR.
 
 ### 5. Open Odoo in your browser
 
@@ -229,8 +233,59 @@ This fully removes:
 - PostgreSQL data
 - Odoo filestore data
 
-### If login fails
+### Common first-run problems and fixes
 
+#### 1. `.env` file is missing
+
+Symptom:
+- Docker Compose says a variable is missing
+- services fail to start correctly
+
+Fix:
+
+```sh
+cp .env.example .env
+```
+
+Then open `.env` and make sure these values exist:
+- `POSTGRES_PASSWORD`
+- `ODOO_DB_PASSWORD`
+- `ODOO_ADMIN_PASSWORD`
+
+Also make sure these pairs match:
+- `POSTGRES_USER` = `ODOO_DB_USER`
+- `POSTGRES_PASSWORD` = `ODOO_DB_PASSWORD`
+
+#### 2. Port `8069` or `5432` is already in use
+
+Symptom:
+- Docker fails with a port binding error
+- Odoo or PostgreSQL does not start
+
+Fix:
+Edit `.env` and change one or both ports:
+
+```text
+ODOO_PORT=8070
+POSTGRES_PORT=5433
+```
+
+Then restart:
+
+```sh
+make down
+make up
+```
+
+If you change `ODOO_PORT`, open Odoo using that new port in the browser.
+
+#### 3. Odoo starts but login fails
+
+Symptom:
+- `Wrong login/password`
+- Odoo opens but rejects `admin`
+
+Fix:
 Use this exact URL:
 
 ```text
@@ -241,7 +296,150 @@ Then log in with:
 - **Email:** `admin`
 - **Password:** `admin`
 
-If you still cannot log in, reset the database and initialize it again.
+If that still fails, recreate the database cleanly:
+
+```sh
+make reset-db
+make up
+make init-db
+```
+
+#### 4. Odoo opens the wrong database screen
+
+Symptom:
+- You see the database manager or another database login page
+- Odoo is not using `coffee_shop`
+
+Fix:
+Open this exact URL:
+
+```text
+http://localhost:8069/web?db=coffee_shop
+```
+
+That forces Odoo to use the expected database.
+
+#### 5. `make init-db` fails
+
+Symptom:
+- database init script fails
+- Odoo may not be ready yet
+- local Python does not see the `.env` values
+
+Fix:
+First make sure the containers are up:
+
+```sh
+make up
+make logs
+```
+
+Wait until Odoo shows it is serving HTTP requests, then try again:
+
+```sh
+make init-db
+```
+
+If your shell does not export `.env` variables cleanly for Python, run the manual fallback:
+
+```sh
+set -a && . ./.env && python scripts/init/init_db.py
+```
+
+#### 6. Docker starts, but the containers keep restarting
+
+Symptom:
+- `docker compose ps` shows restarting containers
+- Odoo or Postgres never becomes healthy
+
+Fix:
+Check logs first:
+
+```sh
+make logs
+```
+
+Then verify:
+- `.env` exists
+- DB credentials match correctly
+- the ports are free
+- Docker Desktop is fully running
+
+If needed, wipe everything and start clean:
+
+```sh
+make reset-db
+make up
+make init-db
+```
+
+#### 7. Changes to addon data are not reflected
+
+Symptom:
+- you updated XML data but Odoo still shows old values
+
+Fix:
+For a clean local demo, the easiest path is:
+
+```sh
+make reset-db
+make up
+make init-db
+```
+
+That guarantees the latest module data is loaded into a fresh database.
+
+#### 8. Windows shell command differences
+
+Symptom:
+- `cp` does not work in your terminal
+
+Fix:
+Use one of these alternatives:
+
+PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Command Prompt:
+
+```cmd
+copy .env.example .env
+```
+
+Or just create `.env` manually by duplicating `.env.example`.
+
+#### 9. Docker Compose says the repository is cloned but startup still fails
+
+Fix checklist:
+- Docker Desktop is running
+- `.env` exists
+- no port conflicts on `8069` and `5432`
+- you ran `make up` before `make init-db`
+- you open `http://localhost:8069/web?db=coffee_shop`
+
+### Safe recovery flow
+
+If a user gets stuck and just wants a guaranteed clean retry, this is the shortest reliable recovery path:
+
+```sh
+make reset-db
+cp .env.example .env
+make up
+make init-db
+```
+
+Then open:
+
+```text
+http://localhost:8069/web?db=coffee_shop
+```
+
+Login with:
+- **Email:** `admin`
+- **Password:** `admin`
 
 ---
 
@@ -267,6 +465,17 @@ Do **not** commit:
 - container data
 
 ---
+
+## 30-second presentation script
+
+You can explain the project like this:
+
+> This is a fully containerized Odoo 17 Community setup for a small coffee shop.
+> It runs with Docker Compose using Odoo and PostgreSQL, keeps data persistent,
+> and includes a custom addon with preloaded POS categories, products, and a
+> starter counter configuration. I also localized the template for Pakistan by
+> setting the company country to Pakistan and the default currency to PKR, so
+> it feels closer to a real business starter kit instead of just a demo install.
 
 ## Summary
 

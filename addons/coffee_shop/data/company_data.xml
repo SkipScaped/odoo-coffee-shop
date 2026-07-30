@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="base.main_company" model="res.company">
+        <field name="name">Aaliyan Coffee Shop</field>
+        <field name="currency_id" ref="base.PKR"/>
+    </record>
+
+    <record id="base.main_partner" model="res.partner">
+        <field name="name">Aaliyan Coffee Shop</field>
+        <field name="country_id" ref="base.pk"/>
+    </record>
+</odoo>

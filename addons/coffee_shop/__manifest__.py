@@ -16,6 +16,7 @@
         "security/ir.model.access.csv",
         "data/uom_data.xml",
         "data/product_tag_data.xml",
+        "data/company_data.xml",
         "data/pos_category_data.xml",
         "data/product_category_data.xml",
         "data/product_data.xml",
