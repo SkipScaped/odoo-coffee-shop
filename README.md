@@ -126,6 +126,8 @@ docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/ini
 
 This step is what creates the `coffee_shop` database and installs the custom module.
 
+The initializer runs inside the Odoo container and uses the environment values already loaded from `.env`.
+
 ### 5. Open Odoo
 
 Open:
@@ -314,15 +316,19 @@ Run:
 docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
 ```
 
-### 5. `make init-db` fails on Windows
+### 5. `make init-db` or Docker init fails with `KeyError: 'ODOO_ADMIN_PASSWORD'`
 
-Use the Docker-native command instead:
+This means the running Odoo container was started before the latest environment values were available inside the service definition.
+
+Fix it with a clean recreate:
 
 ```powershell
+docker compose --env-file .env down
+docker compose --env-file .env up -d --force-recreate
 docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
 ```
 
-That avoids local Python and shell export problems.
+That recreates the container with the required environment values available to the init script.
 
 ### 6. Containers keep restarting
 

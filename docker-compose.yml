@@ -29,6 +29,12 @@ services:
       PORT: ${ODOO_DB_PORT}
       USER: ${ODOO_DB_USER}
       PASSWORD: ${ODOO_DB_PASSWORD}
+      ODOO_ADMIN_PASSWORD: ${ODOO_ADMIN_PASSWORD}
+      ODOO_INIT_DB: coffee_shop
+      ODOO_INIT_ADMIN_LOGIN: admin
+      ODOO_INIT_ADMIN_PASSWORD: admin
+      ODOO_INIT_LANG: en_US
+      ODOO_INIT_COUNTRY: PK
     ports:
       - "${ODOO_PORT}:8069"
       - "${ODOO_LONGPOLLING_PORT}:8072"
