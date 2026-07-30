@@ -1,6 +1,6 @@
 # Odoo 17 Coffee Shop Setup
 
-A clean, local-first Odoo 17 Community template for a small coffee shop business.
+A clean, local-first Odoo 17 template for a small coffee shop business.
 
 It includes:
 - Docker Compose setup for `odoo` and `postgres`
@@ -18,7 +18,7 @@ The seeded coffee shop module includes:
 
 ---
 
-## Prerequisites
+## Requirements
 
 Before you start, make sure you have:
 
