@@ -64,6 +64,21 @@ Before you start, make sure you have:
 
 ### Option A: Fastest install with Docker
 
+If you want the easiest Windows path, use the included PowerShell script:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\init.ps1
+```
+
+That script:
+- creates `.env` if missing
+- starts Docker services
+- creates the `coffee_shop` database
+- installs the custom addon
+- prints the final login URL
+
+Or follow the manual steps below if you prefer.
+
 ### 1. Clone the repository
 
 ```powershell
@@ -194,7 +209,13 @@ http://localhost:8069/web?db=coffee_shop
 
 ## One-command-style local flow
 
-For a clean local install after cloning:
+For a clean local install after cloning, you can run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\init.ps1
+```
+
+Manual equivalent:
 
 ```powershell
 Copy-Item .env.example .env
@@ -408,9 +429,7 @@ Do not commit:
 Fastest Windows flow:
 
 ```powershell
-Copy-Item .env.example .env
-docker compose --env-file .env up -d
-docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
+powershell -ExecutionPolicy Bypass -File .\scripts\init.ps1
 ```
 
 Then open:
