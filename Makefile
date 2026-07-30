@@ -16,7 +16,7 @@ logs:
 	$(COMPOSE) logs -f odoo db
 
 init-db:
-	python scripts/init/init_db.py
+	$(COMPOSE) exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
 
 reset-db:
 	$(COMPOSE) down -v

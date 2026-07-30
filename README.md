@@ -7,6 +7,7 @@ It includes:
 - persistent Docker volumes for the database and filestore
 - a custom `coffee_shop` addon with POS categories, starter products, and basic inventory-friendly setup
 - helper commands for starting, stopping, logging, and resetting the stack
+- an automated Docker-based database initializer so users do not need local Python setup
 
 ## What you get
 
@@ -24,9 +25,11 @@ The seeded coffee shop module includes:
 
 Before you start, make sure you have:
 
-- Docker Desktop installed
-- Docker Compose available
-- `make` available in your shell, or use the scripts in `scripts/`
+- Windows 10 or Windows 11
+- Docker Desktop installed and running
+- Docker Compose available through Docker Desktop
+- PowerShell, Command Prompt, or Git Bash
+- `make` is optional; if you do not have it, you can use the raw Docker commands shown below
 
 ---
 
@@ -40,12 +43,15 @@ Before you start, make sure you have:
 │       ├── models/
 │       ├── security/
 │       ├── views/
+│       ├── static/
 │       ├── __init__.py
 │       ├── __manifest__.py
 │       └── README.md
 ├── config/
 │   └── odoo.conf.template
 ├── scripts/
+│   └── init/
+│       └── init_db.py
 ├── .env.example
 ├── docker-compose.yml
 ├── Makefile
@@ -54,122 +60,159 @@ Before you start, make sure you have:
 
 ---
 
-## Step-by-step local setup
+## Windows installation guide
+
+### Option A: Fastest install with Docker
 
 ### 1. Clone the repository
 
-```sh
+```powershell
 git clone https://github.com/SkipScaped/odoo-coffee-shop.git
-cd Odoo-Fix
+cd odoo-coffee-shop
 ```
 
-If you already downloaded the folder, just open it in your terminal.
+Important: after cloning from GitHub, the folder name will usually be `odoo-coffee-shop`, not `Odoo-Fix`.
 
-### 2. Create your local environment file
+### 2. Create the environment file
 
-Copy the example file:
+In PowerShell:
 
-```sh
-cp .env.example .env
+```powershell
+Copy-Item .env.example .env
 ```
 
-Then open `.env` and update these values:
+In Command Prompt:
 
+```cmd
+copy .env.example .env
+```
+
+Then open `.env` and update at least these values:
 - `POSTGRES_PASSWORD`
 - `ODOO_DB_PASSWORD`
 - `ODOO_ADMIN_PASSWORD`
 
-Important:
+These must stay aligned:
 - `POSTGRES_USER` must match `ODOO_DB_USER`
 - `POSTGRES_PASSWORD` must match `ODOO_DB_PASSWORD`
 
-The repository keeps secrets out of Git by using `.env` locally and committing only `.env.example`.
+### 3. Start Docker services
 
-### 3. Start the containers
+If you have `make`:
 
-Using `make`:
-
-```sh
+```powershell
 make up
 ```
 
-Or using the shell script:
+If you do not have `make`:
 
-```sh
-sh scripts/up.sh
+```powershell
+docker compose --env-file .env up -d
 ```
 
-This starts:
-- PostgreSQL
-- Odoo 17 Community
+### 4. Initialize the database automatically
 
-### 4. Create the database and install the module
+If you have `make`:
 
-The easiest option is the automated setup:
-
-```sh
+```powershell
 make init-db
 ```
 
-That creates the `coffee_shop` database and installs the `coffee_shop` addon automatically.
+If you do not have `make`:
 
-By default, the automated setup now creates the database with Pakistan as the country context, and the addon sets the main company currency to PKR.
+```powershell
+docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
+```
 
-### 5. Open Odoo in your browser
+This step is what creates the `coffee_shop` database and installs the custom module.
 
-Go to:
+### 5. Open Odoo
+
+Open:
 
 ```text
 http://localhost:8069/web?db=coffee_shop
 ```
 
-Using the `?db=coffee_shop` part helps avoid logging into the wrong database if you have more than one.
-
 ### 6. Log in
 
-Use these credentials:
-
+Use:
 - **Email:** `admin`
 - **Password:** `admin`
 
-If you are asked for the **master password** during database management, use the value from `.env`:
-
+If Odoo asks for the **master password** for database management, use the value from `.env`:
 - `ODOO_ADMIN_PASSWORD`
-
-If you are using the local setup I created during testing, that value is:
-
-- `odoo_master_dev_password`
 
 ### 7. Open the POS
 
-After logging in:
-
+After login:
 1. Go to **Point of Sale**
 2. Open **Main Counter**
 3. Start a session
-4. You should see the seeded coffee shop items in the POS screen
 
 ---
 
-## Manual setup option
+## Why Odoo may show "Create Database" after clone
 
-If you do **not** want to use `make init-db`, you can do it manually.
+This is normal if you only run Docker and do not run the initializer yet.
 
-1. Open:
-   - `http://localhost:8069`
-2. Create a new database with:
-   - **Master Password:** value of `ODOO_ADMIN_PASSWORD` from `.env`
-   - **Database Name:** `coffee_shop`
-   - **Email:** `admin`
-   - **Password:** `admin`
-3. Log in
-4. Install the `Coffee Shop Setup` app if needed
+Why it happens:
+- Docker starts Odoo and PostgreSQL
+- but Odoo does **not** automatically create a business database on its own
+- the actual business database is created by the `init-db` step
+
+So if someone clones the repo and only runs:
+
+```powershell
+docker compose --env-file .env up -d
+```
+
+then Odoo may still open on the database creation screen.
+
+### The fix
+Run the initializer:
+
+```powershell
+make init-db
+```
+
+or:
+
+```powershell
+docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
+```
+
+After that, open:
+
+```text
+http://localhost:8069/web?db=coffee_shop
+```
+
+---
+
+## One-command-style local flow
+
+For a clean local install after cloning:
+
+```powershell
+Copy-Item .env.example .env
+docker compose --env-file .env up -d
+docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
+```
+
+Then open:
+
+```text
+http://localhost:8069/web?db=coffee_shop
+```
+
+Login with:
+- **Email:** `admin`
+- **Password:** `admin`
 
 ---
 
 ## Seeded products
-
-The template includes a larger sample menu so the system feels usable right away.
 
 Examples include:
 - Espresso
@@ -190,80 +233,44 @@ Examples include:
 
 ---
 
-## Inventory behavior
-
-The starter products are created as `consu` products.
-
-This keeps the setup simple for local use while still allowing products to appear in Odoo sales, POS, and inventory-related flows. If you want strict stock valuation later, you can convert selected items into storable products.
-
----
-
 ## Common commands
 
+With `make`:
+
 ```sh
-make init-env   # copy .env.example to .env
-make up         # start Odoo and PostgreSQL
-make down       # stop containers
-make logs       # show service logs
-make init-db    # create the coffee_shop database and install the addon
-make reset-db   # remove containers and Docker volumes
+make init-env
+make up
+make down
+make logs
+make init-db
+make reset-db
 ```
 
-Equivalent scripts are available in `scripts/`.
+Without `make`:
+
+```powershell
+docker compose --env-file .env up -d
+docker compose --env-file .env down
+docker compose --env-file .env logs -f odoo db
+docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
+docker compose --env-file .env down -v
+```
 
 ---
 
-## Logs and troubleshooting
+## Troubleshooting
 
-### Show logs
-
-```sh
-make logs
-```
-
-### Reset everything and start fresh
-
-```sh
-make reset-db
-make up
-make init-db
-```
-
-This fully removes:
-- PostgreSQL data
-- Odoo filestore data
-
-### Common first-run problems and fixes
-
-#### 1. `.env` file is missing
-
-Symptom:
-- Docker Compose says a variable is missing
-- services fail to start correctly
+### 1. `.env` is missing
 
 Fix:
 
-```sh
-cp .env.example .env
+```powershell
+Copy-Item .env.example .env
 ```
 
-Then open `.env` and make sure these values exist:
-- `POSTGRES_PASSWORD`
-- `ODOO_DB_PASSWORD`
-- `ODOO_ADMIN_PASSWORD`
+### 2. Ports are already in use
 
-Also make sure these pairs match:
-- `POSTGRES_USER` = `ODOO_DB_USER`
-- `POSTGRES_PASSWORD` = `ODOO_DB_PASSWORD`
-
-#### 2. Port `8069` or `5432` is already in use
-
-Symptom:
-- Docker fails with a port binding error
-- Odoo or PostgreSQL does not start
-
-Fix:
-Edit `.env` and change one or both ports:
+If `8069` or `5432` is busy, edit `.env`:
 
 ```text
 ODOO_PORT=8070
@@ -272,20 +279,13 @@ POSTGRES_PORT=5433
 
 Then restart:
 
-```sh
-make down
-make up
+```powershell
+docker compose --env-file .env down
+docker compose --env-file .env up -d
 ```
 
-If you change `ODOO_PORT`, open Odoo using that new port in the browser.
+### 3. Wrong login/password
 
-#### 3. Odoo starts but login fails
-
-Symptom:
-- `Wrong login/password`
-- Odoo opens but rejects `admin`
-
-Fix:
 Use this exact URL:
 
 ```text
@@ -296,139 +296,57 @@ Then log in with:
 - **Email:** `admin`
 - **Password:** `admin`
 
-If that still fails, recreate the database cleanly:
+If it still fails:
 
-```sh
-make reset-db
-make up
-make init-db
+```powershell
+docker compose --env-file .env down -v
+docker compose --env-file .env up -d
+docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
 ```
 
-#### 4. Odoo opens the wrong database screen
+### 4. Docker is running but Odoo still shows Create Database
 
-Symptom:
-- You see the database manager or another database login page
-- Odoo is not using `coffee_shop`
+That means the app stack is running, but the `coffee_shop` database has not been initialized yet.
 
-Fix:
-Open this exact URL:
+Run:
 
-```text
-http://localhost:8069/web?db=coffee_shop
+```powershell
+docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
 ```
 
-That forces Odoo to use the expected database.
+### 5. `make init-db` fails on Windows
 
-#### 5. `make init-db` fails
+Use the Docker-native command instead:
 
-Symptom:
-- database init script fails
-- Odoo may not be ready yet
-- local Python does not see the `.env` values
-
-Fix:
-First make sure the containers are up:
-
-```sh
-make up
-make logs
+```powershell
+docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
 ```
 
-Wait until Odoo shows it is serving HTTP requests, then try again:
+That avoids local Python and shell export problems.
 
-```sh
-make init-db
-```
+### 6. Containers keep restarting
 
-If your shell does not export `.env` variables cleanly for Python, run the manual fallback:
+Check logs:
 
-```sh
-set -a && . ./.env && python scripts/init/init_db.py
-```
-
-#### 6. Docker starts, but the containers keep restarting
-
-Symptom:
-- `docker compose ps` shows restarting containers
-- Odoo or Postgres never becomes healthy
-
-Fix:
-Check logs first:
-
-```sh
-make logs
+```powershell
+docker compose --env-file .env logs -f odoo db
 ```
 
 Then verify:
-- `.env` exists
-- DB credentials match correctly
-- the ports are free
-- Docker Desktop is fully running
-
-If needed, wipe everything and start clean:
-
-```sh
-make reset-db
-make up
-make init-db
-```
-
-#### 7. Changes to addon data are not reflected
-
-Symptom:
-- you updated XML data but Odoo still shows old values
-
-Fix:
-For a clean local demo, the easiest path is:
-
-```sh
-make reset-db
-make up
-make init-db
-```
-
-That guarantees the latest module data is loaded into a fresh database.
-
-#### 8. Windows shell command differences
-
-Symptom:
-- `cp` does not work in your terminal
-
-Fix:
-Use one of these alternatives:
-
-PowerShell:
-
-```powershell
-Copy-Item .env.example .env
-```
-
-Command Prompt:
-
-```cmd
-copy .env.example .env
-```
-
-Or just create `.env` manually by duplicating `.env.example`.
-
-#### 9. Docker Compose says the repository is cloned but startup still fails
-
-Fix checklist:
 - Docker Desktop is running
 - `.env` exists
-- no port conflicts on `8069` and `5432`
-- you ran `make up` before `make init-db`
-- you open `http://localhost:8069/web?db=coffee_shop`
+- ports are free
+- DB credentials match
 
-### Safe recovery flow
+### 7. Guaranteed clean recovery flow
 
-If a user gets stuck and just wants a guaranteed clean retry, this is the shortest reliable recovery path:
+If someone gets stuck, this is the safest recovery path:
 
-```sh
-make reset-db
-cp .env.example .env
-make up
-make init-db
+```powershell
+docker compose --env-file .env down -v
+Copy-Item .env.example .env
+docker compose --env-file .env up -d
+docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
 ```
 
 Then open:
@@ -437,54 +355,37 @@ Then open:
 http://localhost:8069/web?db=coffee_shop
 ```
 
-Login with:
-- **Email:** `admin`
-- **Password:** `admin`
-
 ---
 
 ## Notes for GitHub upload
 
-This project is ready to publish as a Git repository.
-
-Recommended files to commit:
+Commit these:
 - `docker-compose.yml`
 - `README.md`
 - `.env.example`
 - `addons/coffee_shop/...`
-- `Makefile`
 - `scripts/...`
+- `Makefile`
 - `.gitignore`
 - `.dockerignore`
 - `.gitattributes`
 - `LICENSE`
 
-Do **not** commit:
+Do not commit:
 - `.env`
-- local IDE settings
-- container data
+- local IDE files
+- Docker data
 
 ---
 
-## 30-second presentation script
-
-You can explain the project like this:
-
-> This is a fully containerized Odoo 17 Community setup for a small coffee shop.
-> It runs with Docker Compose using Odoo and PostgreSQL, keeps data persistent,
-> and includes a custom addon with preloaded POS categories, products, and a
-> starter counter configuration. I also localized the template for Pakistan by
-> setting the company country to Pakistan and the default currency to PKR, so
-> it feels closer to a real business starter kit instead of just a demo install.
-
 ## Summary
 
-If you want the fastest path, the install flow is:
+Fastest Windows flow:
 
-```sh
-cp .env.example .env
-make up
-make init-db
+```powershell
+Copy-Item .env.example .env
+docker compose --env-file .env up -d
+docker compose --env-file .env exec -T odoo sh -c "python3 /mnt/scripts/init/init_db.py"
 ```
 
 Then open:

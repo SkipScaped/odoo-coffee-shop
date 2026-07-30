@@ -35,6 +35,7 @@ services:
     volumes:
       - odoo_data:/var/lib/odoo
       - ./addons:/mnt/extra-addons
+      - ./scripts:/mnt/scripts
       - ./config/odoo.conf.template:/etc/odoo/odoo.conf.template:ro
     command:
       [
