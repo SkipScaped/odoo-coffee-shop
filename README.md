@@ -60,7 +60,7 @@ Before you start, make sure you have:
 
 ```sh
 git clone https://github.com/SkipScaped/odoo-coffee-shop.git
-cd Odoo-Fix
+cd odoo-coffee-shop
 ```
 
 If you already downloaded the folder, just open it in your terminal.
