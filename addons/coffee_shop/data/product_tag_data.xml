@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="product_tag_house_special" model="product.tag">
+        <field name="name">House Special</field>
+    </record>
+    <record id="product_tag_bakery" model="product.tag">
+        <field name="name">Bakery</field>
+    </record>
+    <record id="product_tag_seasonal" model="product.tag">
+        <field name="name">Seasonal</field>
+    </record>
+    <record id="product_tag_grab_and_go" model="product.tag">
+        <field name="name">Grab &amp; Go</field>
+    </record>
+</odoo>

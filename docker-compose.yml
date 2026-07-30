@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:${POSTGRES_VERSION}
+    container_name: ${COMPOSE_PROJECT_NAME}-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  odoo:
+    image: odoo:${ODOO_VERSION}
+    container_name: ${COMPOSE_PROJECT_NAME}-odoo
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      HOST: ${ODOO_DB_HOST}
+      PORT: ${ODOO_DB_PORT}
+      USER: ${ODOO_DB_USER}
+      PASSWORD: ${ODOO_DB_PASSWORD}
+    ports:
+      - "${ODOO_PORT}:8069"
+      - "${ODOO_LONGPOLLING_PORT}:8072"
+    volumes:
+      - odoo_data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+      - ./config/odoo.conf.template:/etc/odoo/odoo.conf.template:ro
+    command:
+      [
+        "/bin/sh",
+        "-c",
+        "sed -e s#__ODOO_ADMIN_PASSWORD__#${ODOO_ADMIN_PASSWORD}#g -e s#__ODOO_DB_HOST__#${ODOO_DB_HOST}#g -e s#__ODOO_DB_PORT__#${ODOO_DB_PORT}#g -e s#__ODOO_DB_USER__#${ODOO_DB_USER}#g -e s#__ODOO_DB_PASSWORD__#${ODOO_DB_PASSWORD}#g /etc/odoo/odoo.conf.template > /tmp/odoo.conf && exec odoo -c /tmp/odoo.conf"
+      ]
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  odoo_data:

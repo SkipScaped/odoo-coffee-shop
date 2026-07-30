@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="product_category_coffee_shop" model="product.category">
+        <field name="name">Coffee Shop</field>
+    </record>
+    <record id="product_category_beverages" model="product.category">
+        <field name="name">Beverages</field>
+        <field name="parent_id" ref="coffee_shop.product_category_coffee_shop"/>
+    </record>
+    <record id="product_category_food" model="product.category">
+        <field name="name">Food</field>
+        <field name="parent_id" ref="coffee_shop.product_category_coffee_shop"/>
+    </record>
+    <record id="product_category_retail" model="product.category">
+        <field name="name">Retail</field>
+        <field name="parent_id" ref="coffee_shop.product_category_coffee_shop"/>
+    </record>
+</odoo>

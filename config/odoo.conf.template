@@ -1,0 +1,10 @@
+[options]
+admin_passwd = __ODOO_ADMIN_PASSWORD__
+db_host = __ODOO_DB_HOST__
+db_port = __ODOO_DB_PORT__
+db_user = __ODOO_DB_USER__
+db_password = __ODOO_DB_PASSWORD__
+addons_path = /mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons
+proxy_mode = False
+list_db = True
+without_demo = False

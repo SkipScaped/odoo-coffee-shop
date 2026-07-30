@@ -1,0 +1,27 @@
+{
+    "name": "Coffee Shop Setup",
+    "version": "17.0.1.0.0",
+    "summary": "Starter data and configuration for a small coffee shop",
+    "category": "Sales/Point of Sale",
+    "author": "Aaliyan",
+    "website": "https://github.com/aaliyan/odoo-coffee-shop",
+    "license": "LGPL-3",
+    "depends": [
+        "base",
+        "point_of_sale",
+        "product",
+        "stock",
+    ],
+    "data": [
+        "security/ir.model.access.csv",
+        "data/uom_data.xml",
+        "data/product_tag_data.xml",
+        "data/pos_category_data.xml",
+        "data/product_category_data.xml",
+        "data/product_data.xml",
+        "data/pos_config_data.xml",
+        "views/product_template_views.xml",
+    ],
+    "installable": True,
+    "application": False,
+}

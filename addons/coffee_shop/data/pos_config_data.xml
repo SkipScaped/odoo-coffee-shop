@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="pos_config_main_counter" model="pos.config">
+        <field name="name">Main Counter</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="iface_available_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_drinks'), ref('coffee_shop.pos_category_pastries')])]"/>
+    </record>
+</odoo>

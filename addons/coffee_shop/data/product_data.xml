@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="product_espresso" model="product.template">
+        <field name="name">Espresso</field>
+        <field name="type">consu</field>
+        <field name="list_price">2.50</field>
+        <field name="standard_price">0.70</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_beverages"/>
+        <field name="uom_id" ref="coffee_shop.uom_cup"/>
+        <field name="uom_po_id" ref="coffee_shop.uom_cup"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_coffee')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_house_special')])]"/>
+        <field name="coffee_shop_item_type">drink</field>
+    </record>
+
+    <record id="product_americano" model="product.template">
+        <field name="name">Americano</field>
+        <field name="type">consu</field>
+        <field name="list_price">3.25</field>
+        <field name="standard_price">0.85</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_beverages"/>
+        <field name="uom_id" ref="coffee_shop.uom_cup"/>
+        <field name="uom_po_id" ref="coffee_shop.uom_cup"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_coffee')])]"/>
+        <field name="coffee_shop_item_type">drink</field>
+    </record>
+
+    <record id="product_cappuccino" model="product.template">
+        <field name="name">Cappuccino</field>
+        <field name="type">consu</field>
+        <field name="list_price">4.50</field>
+        <field name="standard_price">1.25</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_beverages"/>
+        <field name="uom_id" ref="coffee_shop.uom_cup"/>
+        <field name="uom_po_id" ref="coffee_shop.uom_cup"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_coffee')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_house_special')])]"/>
+        <field name="coffee_shop_item_type">drink</field>
+    </record>
+
+    <record id="product_latte" model="product.template">
+        <field name="name">Latte</field>
+        <field name="type">consu</field>
+        <field name="list_price">4.25</field>
+        <field name="standard_price">1.20</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_beverages"/>
+        <field name="uom_id" ref="coffee_shop.uom_cup"/>
+        <field name="uom_po_id" ref="coffee_shop.uom_cup"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_coffee')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_house_special')])]"/>
+        <field name="coffee_shop_item_type">drink</field>
+    </record>
+
+    <record id="product_mocha" model="product.template">
+        <field name="name">Mocha</field>
+        <field name="type">consu</field>
+        <field name="list_price">4.95</field>
+        <field name="standard_price">1.45</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_beverages"/>
+        <field name="uom_id" ref="coffee_shop.uom_cup"/>
+        <field name="uom_po_id" ref="coffee_shop.uom_cup"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_coffee')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_seasonal')])]"/>
+        <field name="coffee_shop_item_type">drink</field>
+    </record>
+
+    <record id="product_iced_latte" model="product.template">
+        <field name="name">Iced Latte</field>
+        <field name="type">consu</field>
+        <field name="list_price">4.75</field>
+        <field name="standard_price">1.35</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_beverages"/>
+        <field name="uom_id" ref="coffee_shop.uom_cup"/>
+        <field name="uom_po_id" ref="coffee_shop.uom_cup"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_coffee')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_grab_and_go')])]"/>
+        <field name="coffee_shop_item_type">drink</field>
+    </record>
+
+    <record id="product_hot_tea" model="product.template">
+        <field name="name">Hot Tea</field>
+        <field name="type">consu</field>
+        <field name="list_price">2.95</field>
+        <field name="standard_price">0.60</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_beverages"/>
+        <field name="uom_id" ref="coffee_shop.uom_cup"/>
+        <field name="uom_po_id" ref="coffee_shop.uom_cup"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_drinks')])]"/>
+        <field name="coffee_shop_item_type">drink</field>
+    </record>
+
+    <record id="product_orange_juice" model="product.template">
+        <field name="name">Orange Juice</field>
+        <field name="type">consu</field>
+        <field name="list_price">3.80</field>
+        <field name="standard_price">1.10</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_beverages"/>
+        <field name="uom_id" ref="coffee_shop.uom_cup"/>
+        <field name="uom_po_id" ref="coffee_shop.uom_cup"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_drinks')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_grab_and_go')])]"/>
+        <field name="coffee_shop_item_type">drink</field>
+    </record>
+
+    <record id="product_croissant" model="product.template">
+        <field name="name">Butter Croissant</field>
+        <field name="type">consu</field>
+        <field name="list_price">3.75</field>
+        <field name="standard_price">1.10</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_food"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_pastries')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_bakery')])]"/>
+        <field name="coffee_shop_item_type">food</field>
+    </record>
+
+    <record id="product_blueberry_muffin" model="product.template">
+        <field name="name">Blueberry Muffin</field>
+        <field name="type">consu</field>
+        <field name="list_price">3.50</field>
+        <field name="standard_price">1.00</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_food"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_pastries')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_bakery')])]"/>
+        <field name="coffee_shop_item_type">food</field>
+    </record>
+
+    <record id="product_chocolate_chip_cookie" model="product.template">
+        <field name="name">Chocolate Chip Cookie</field>
+        <field name="type">consu</field>
+        <field name="list_price">2.25</field>
+        <field name="standard_price">0.55</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_food"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_pastries')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_bakery'), ref('coffee_shop.product_tag_grab_and_go')])]"/>
+        <field name="coffee_shop_item_type">food</field>
+    </record>
+
+    <record id="product_banana_bread" model="product.template">
+        <field name="name">Banana Bread Slice</field>
+        <field name="type">consu</field>
+        <field name="list_price">3.20</field>
+        <field name="standard_price">0.95</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_food"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_pastries')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_bakery')])]"/>
+        <field name="coffee_shop_item_type">food</field>
+    </record>
+
+    <record id="product_granola_parfait" model="product.template">
+        <field name="name">Granola Parfait</field>
+        <field name="type">consu</field>
+        <field name="list_price">5.25</field>
+        <field name="standard_price">1.80</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_food"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_pastries')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_grab_and_go')])]"/>
+        <field name="coffee_shop_item_type">food</field>
+    </record>
+
+    <record id="product_coffee_beans_house_blend" model="product.template">
+        <field name="name">House Blend Beans 250g</field>
+        <field name="type">consu</field>
+        <field name="list_price">12.50</field>
+        <field name="standard_price">6.00</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_retail"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_drinks')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_house_special'), ref('coffee_shop.product_tag_grab_and_go')])]"/>
+        <field name="coffee_shop_item_type">retail</field>
+    </record>
+
+    <record id="product_reusable_tumbler" model="product.template">
+        <field name="name">Reusable Tumbler</field>
+        <field name="type">consu</field>
+        <field name="list_price">14.00</field>
+        <field name="standard_price">7.25</field>
+        <field name="available_in_pos">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="to_weight">False</field>
+        <field name="categ_id" ref="coffee_shop.product_category_retail"/>
+        <field name="pos_categ_ids" eval="[(6, 0, [ref('coffee_shop.pos_category_drinks')])]"/>
+        <field name="product_tag_ids" eval="[(6, 0, [ref('coffee_shop.product_tag_grab_and_go')])]"/>
+        <field name="coffee_shop_item_type">retail</field>
+    </record>
+</odoo>
