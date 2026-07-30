@@ -57,7 +57,7 @@ Before you start, make sure you have:
 ### 1. Clone the repository
 
 ```sh
-git clone <your-repository-url>
+git clone https://github.com/SkipScaped/odoo-coffee-shop.git
 cd Odoo-Fix
 ```
 
