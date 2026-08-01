@@ -2,6 +2,7 @@
 <odoo noupdate="1">
     <record id="product_espresso" model="product.template">
         <field name="name">Espresso</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/espresso.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">2.50</field>
         <field name="standard_price">0.70</field>
@@ -19,6 +20,7 @@
 
     <record id="product_americano" model="product.template">
         <field name="name">Americano</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/americano.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">3.25</field>
         <field name="standard_price">0.85</field>
@@ -35,6 +37,7 @@
 
     <record id="product_cappuccino" model="product.template">
         <field name="name">Cappuccino</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/cappuccino.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">4.50</field>
         <field name="standard_price">1.25</field>
@@ -52,6 +55,7 @@
 
     <record id="product_latte" model="product.template">
         <field name="name">Latte</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/latte.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">4.25</field>
         <field name="standard_price">1.20</field>
@@ -69,6 +73,7 @@
 
     <record id="product_mocha" model="product.template">
         <field name="name">Mocha</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/mocha.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">4.95</field>
         <field name="standard_price">1.45</field>
@@ -86,6 +91,7 @@
 
     <record id="product_iced_latte" model="product.template">
         <field name="name">Iced Latte</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/iced_latte.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">4.75</field>
         <field name="standard_price">1.35</field>
@@ -103,6 +109,7 @@
 
     <record id="product_hot_tea" model="product.template">
         <field name="name">Hot Tea</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/hot_tea.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">2.95</field>
         <field name="standard_price">0.60</field>
@@ -119,6 +126,7 @@
 
     <record id="product_orange_juice" model="product.template">
         <field name="name">Orange Juice</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/orange_juice.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">3.80</field>
         <field name="standard_price">1.10</field>
@@ -136,6 +144,7 @@
 
     <record id="product_croissant" model="product.template">
         <field name="name">Butter Croissant</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/croissant.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">3.75</field>
         <field name="standard_price">1.10</field>
@@ -151,6 +160,7 @@
 
     <record id="product_blueberry_muffin" model="product.template">
         <field name="name">Blueberry Muffin</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/blueberry_muffin.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">3.50</field>
         <field name="standard_price">1.00</field>
@@ -166,6 +176,7 @@
 
     <record id="product_chocolate_chip_cookie" model="product.template">
         <field name="name">Chocolate Chip Cookie</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/cookie.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">2.25</field>
         <field name="standard_price">0.55</field>
@@ -181,6 +192,7 @@
 
     <record id="product_banana_bread" model="product.template">
         <field name="name">Banana Bread Slice</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/banana_bread.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">3.20</field>
         <field name="standard_price">0.95</field>
@@ -196,6 +208,7 @@
 
     <record id="product_granola_parfait" model="product.template">
         <field name="name">Granola Parfait</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/granola_parfait.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">5.25</field>
         <field name="standard_price">1.80</field>
@@ -211,6 +224,7 @@
 
     <record id="product_coffee_beans_house_blend" model="product.template">
         <field name="name">House Blend Beans 250g</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/coffee_beans.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">12.50</field>
         <field name="standard_price">6.00</field>
@@ -226,6 +240,7 @@
 
     <record id="product_reusable_tumbler" model="product.template">
         <field name="name">Reusable Tumbler</field>
+        <field name="image_1920" type="base64" file="coffee_shop/static/img/products/tumbler.jpg"/>
         <field name="type">consu</field>
         <field name="list_price">14.00</field>
         <field name="standard_price">7.25</field>

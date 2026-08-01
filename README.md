@@ -16,6 +16,7 @@ The seeded coffee shop module includes:
 - drinks, pastries, and retail products
 - POS categories for coffee shop items
 - product categories, tags, and a simple product classification field
+- real product photos bundled inside the addon for every seeded product
 - Pakistan-based company defaults with PKR currency
 - a bundled coffee shop logo asset inside the addon
 
@@ -258,6 +259,10 @@ Examples include:
 - Granola Parfait
 - House Blend Beans 250g
 - Reusable Tumbler
+
+Every seeded product ships with a real product photo bundled inside the addon at `addons/coffee_shop/static/img/products/`. When the module is installed, the photos are stored on the `image_1920` field of each product.
+
+Product photos are sourced from [Unsplash](https://unsplash.com) and are free to use under the [Unsplash License](https://unsplash.com/license).
 
 ---
 
